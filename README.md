@@ -14,7 +14,7 @@ _start:
 ```
 
 - The **global** keyword is used to make an identifier accessible to the linker
-- Identifier followed by a column (`_start:`) will create a label
+- Identifiers followed by a colon (`_start:`) will create a label
 - Labels are used to name locations in our code
 
 ```asm
@@ -34,7 +34,7 @@ mov ebx, 42
 int 0x80
 ```
 
-- Finally, this line, perform an `interrupt`
+- Finally, this line, performs an `interrupt`
 - This means the processor will transfer control to an `interrupt handler` that we specified by the following value (`0x80`).
 - We're using the hex value 80 which is the interrupt handler for `system calls`
 - The `system call` that it makes is determined by the `eax` register
