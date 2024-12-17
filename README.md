@@ -105,3 +105,53 @@ ld -m elf_i386 ex1.o -o ex1
 echo $?
 13
 ```
+
+- - -
+
+As a general rule, the operation is on the **left** and the operand on the **right**
+
+`operation [operand, ...]`
+
+Some examples, we can write comments by using the semi-colon;
+
+```asm
+mov ebx, 123 ; ebx = 123
+mov eax, ebx ; eax = ebx
+add ebx, ecx ; ecx += ecx
+sub ebx, edx ; ebx -= edx
+mul ebx      ; eax *= ebx
+div edx      ; eax /= edx
+```
+
+Multiplication and division are **ALWAYS** applied to the `eax` register
+
+
+- - - 
+
+Let's print something into the console using asm
+
+```asm
+global _start
+
+section .data
+    msg db "Hi from asm", 0x0a ; hex for 10 (\n)
+    len equ $ - msg            ; determine the length of msg
+
+section .text
+_start: 
+    mov eax, 4      ; sys_write system call
+    mov ebx, 1      ; stdout file descriptor
+    mov ecx, msg    ; bytes to write
+    mov edx, len    ; number of bytes to write
+    int 0x80        ; perform system call 
+    mov eax, 1      ; sys_exit system call
+    mov ebx, 0      ; exit status is 0
+    int 0x80    
+```
+
+```bash
+nasm -f elf32 ex2.asm -o ex2.o
+ld -m elf_i386 ex2.o -o ex2
+./ex2
+Hi from asm
+```
