@@ -125,6 +125,21 @@ div edx      ; eax /= edx
 
 Multiplication and division are **ALWAYS** applied to the `eax` register
 
+Also if you multiply two numbers in assembly, the result can be larger than the size of the original numbers. For example:
+
+If you multiply two 32-bit numbers, the result can be as large as 64 bits.
+
+The processor splits the 64-bit result into two 32-bit halves
+
+- The lower half (least significant 32 bits) is stored in the EAX register.
+- The higher half (most significant 32 bits) is stored in the EDX register.
+
+- - -
+
+When dividing, the DIV instruction divides a 64-bit dividend stored in EDX:EAX by a divisor.
+
+- The quotient (result of the division) is stored in EAX.
+- The remainder is stored in EDX
 
 - - - 
 
